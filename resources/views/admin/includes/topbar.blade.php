@@ -1,13 +1,13 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="{{url('/dashboard')}}" class="logo" style="background-color: #000073; ">
+    <a href="{{url('/dashboard')}}" class="logo" style="background-color: #008f00; ">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>UG</b></span>
+      <!-- <span class="logo-mini"><b>UG</b></span> -->
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>UG - </b>CONFERENCES</span>
+      <!-- <span class="logo-lg"><b>UG - </b>CONFERENCES</span> -->
     </a>
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top"  style="background-color: #000073; ">
+    <nav class="navbar navbar-static-top"  style="background-color: #008f00; ">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>

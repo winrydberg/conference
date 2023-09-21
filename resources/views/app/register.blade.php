@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
-                <a href="{{url('/')}}"><img src="{{asset('assets/img/uglogo.svg')}}" alt="" width="159" height="35"></a>
+                <a href="{{url('/')}}"><img src="{{asset('assets/img/mawuli.png')}}" alt="" width="159" height="35"></a>
             </div>
            
         </div>
@@ -27,7 +27,7 @@
 
 <section class="parallax_window_in"  data-parallax="scroll" data-image-src="{{asset('assets/img/cardbg.jpeg')}}" data-natural-width="1400" data-natural-height="800">
     <div id="sub_content_in">
-        <h1>REGISTER FOR CONFERENCE</h1>
+        <h1>REGISTRATION PAGE</h1>
         <a href="{{url('/')}}" class="btn_1 rounded">Go Home</a>
     </div>
 </section>
@@ -39,7 +39,7 @@
         <div class="main_title">
             <h3><em></em>{{$conference->title}}</h3>
             <p>
-                Complete the below form to register and attend conference.
+                Complete the below form to register and attend Congress.
             </p>
         </div>	
         <!--Team Carousel -->
@@ -126,12 +126,10 @@
                                     </div>
                                 @else
                                     <div class="form-group"  style="margin-bottom: 10px;">
-                                        <label>Occupation / Student Type <span style="color:red">*</span></label>
+                                        <label>Occupation <span style="color:red">*</span></label>
                                         <div class="styled-select clearfix">
                                             <select class="wide required form-control" id="occupation" name="occupation">
                                                 <option value="" disabled selected>Select an option</option>
-                                                <option value="Undergraduate student">Undergraduate student</option>
-                                                <option value="Graduate student">Graduate student</option>
                                                 <option value="Researcher">Researcher</option>                           
                                                 <option value="Other">Other</option>                           
                                             </select>
@@ -157,16 +155,7 @@
     <!-- End container -->
 </main>
 
-<footer class="clearfix">
-    <div class="container">
-        <p>© {{date('Y')}} UGCS</p>
-        <ul>
-            <li><a href="#" class="animated_link">Developed By UGCS</a></li>
-            <li><a href="#" class="animated_link">Terms and conditions</a></li>
-            <li><a href="#" class="animated_link">UGCS</a></li>
-        </ul>
-    </div>
-</footer>
+@include('app.includes.copyright')
 
 <!-- end footer-->
 <div class="modal " id="regModal" data-bs-backdrop='static'>

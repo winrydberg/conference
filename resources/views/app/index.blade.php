@@ -22,10 +22,10 @@
                 {{-- <a href="index.html" id="logo"><img src="img/logo.png" alt="" width="49" height="35"></a> --}}
                 <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
                     <div style="padding: 20px; background-color:white; width: 10rem; border-radius: 10px;"><img src="{{asset('assets/img/logo.png')}}" style="height: 6rem; width: 5rem" alt="" class="img-fluid"></div>
-                    <h2>UG Conferences</h2>
-                    <p>Welcome to UG Conference Portal. Select a conference to proceed.</p>
+                    <h2>OMSU Global</h2>
+                    <p>Welcome to OMSU Global Portal. Select a conference to proceed.</p>
                 </div>
-                <div class="copy">© {{date('Y')}} UGCS</div>
+                <div class="copy">© {{date('Y')}}</div>
             </div>
         </div>
         <!-- /content-left -->
@@ -34,7 +34,7 @@
     
                     @if(isset($conferences) && count($conferences) > 0)
                         
-                        <h3 class="main_question">UPCOMING CONFERENCES</h3>
+                        <h3 class="main_question">UPCOMING CONGRESS</h3>
                           <br/>
                             @foreach ($conferences as $item)
                                 <div class="card" style="width: 100%; margin-bottom: 2rem; padding-bottom: 20px;">
@@ -72,7 +72,7 @@
                     @else
                             <div class="row" style="display:flex; flex-direction: column; align-items:center; justify-content:center;">
                                 <img src="{{asset('assets/img/file.png')}}" class="img-fluid" style="width: 150px; padding: 20px; " />
-                                <p class="alert alert-info">Oops, No Active / Upcoming Conferences. Check again later</p>
+                                <p class="alert alert-info">Oops, No Active / Upcoming Congress. Check again later</p>
                             </div>
                     @endif
                     

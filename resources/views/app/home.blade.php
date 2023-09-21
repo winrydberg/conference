@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
-                <a href="{{url('/')}}"><img src="{{asset('assets/img/uglogo.svg')}}" alt="" width="159" height="35"></a>
+                <a href="{{url('/')}}"><img src="{{asset('assets/img/mawuli.png')}}" alt="" width="159" height="35"></a>
             </div>
            
         </div>
@@ -27,7 +27,7 @@
 
 <section class="parallax_window_in"  data-parallax="scroll" data-image-src="{{asset('assets/img/ghbg.png')}}" data-natural-width="1400" data-natural-height="800">
     <div id="sub_content_in">
-        <h1>UG CONFERENCES PORTAL</h1>
+        <h1>CONGRESS REGISTRATION PORTAL</h1>
         {{-- <p style="font-size: 40px;">{{$conference->title}}</p> --}}
     </div>
 </section>
@@ -36,9 +36,9 @@
 <main id="general_page">
     <div class="container_styled_1">
         <div class="container margin_60_35">
-            <h3><em></em>UPCOMING CONFERENCES</h3>
+            <h3><em></em>UPCOMING CONGRESS</h3>
             <p>
-                Find below list of our upcoming conferences
+                Find below list of our upcoming congress
             </p>
 
             <h2><em></em></h2>
@@ -47,7 +47,7 @@
     </div>
     <div class="container margin_60">
         {{-- <div class="main_title">
-            <h3><em></em>UPCOMING CONFERENCES</h3>
+            <h3><em></em>UPCOMING CONGRESS</h3>
             <p>
                 Find below our list of our upcoming conferences
             </p>
@@ -67,7 +67,7 @@
             <form>
                 <div class="row" style="width: 100%;">
                     <div class=" col-md-8">
-                        <input type="text" name="term" class="form-control col-md-12" placeholder="Search conference">
+                        <input type="text" name="term" class="form-control col-md-12" placeholder="Search congress">
                      </div> 
 
                      <div class="col-md-4">
@@ -103,7 +103,7 @@
                                     <br />
                                     <a href="{{url('/apply-now?cid='.$item->token)}}" class="btn_1 small">Register Now</a>
 
-                                    <a href="{{url('/about?cid='.$item->token)}}" class="btn_1 small " style="background-color: #6c757d">About Conference</a>
+                                    <a href="{{url('/about?cid='.$item->token)}}" class="btn_1 small " style="background-color: #6c757d">About Congress</a>
         
                                     @if($item->receive_abstract =='1' || $item->receive_abstract==true)
                                     <a href="{{url('/submit-abstract?cid='.$item->token)}}" class="btn_1 small" style="background-color: #28a745" >Submit Abstract</a>
@@ -114,7 +114,7 @@
                     </div>
                     @endforeach
               @else
-                    <p class="alert alert-info">No Upcoming Conferences. Check again later.</p>
+                    <p class="alert alert-info">No Upcoming Congress. Check again later.</p>
               @endif
         </div>
         <!--End Team Carousel-->
@@ -122,16 +122,7 @@
     <!-- End container -->
 </main>
 
-<footer class="clearfix">
-    <div class="container">
-        <p>© {{date('Y')}} UGCS</p>
-        <ul>
-            <li><a href="#" class="animated_link">Developed By UGCS</a></li>
-            <li><a href="#" class="animated_link">Terms and conditions</a></li>
-            <li><a href="#" class="animated_link">UGCS</a></li>
-        </ul>
-    </div>
-</footer>
+@include('app.includes.copyright')
 
 <!-- end footer-->
 

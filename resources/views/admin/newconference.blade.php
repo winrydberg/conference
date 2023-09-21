@@ -20,7 +20,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">New  Conference</li>
+        <li class="active">New  Congress</li>
       </ol>
     </section>
 
@@ -30,7 +30,7 @@
         <div class="col-md-12">
           <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">New Conference</h3>
+              <h3 class="box-title">New Congress</h3>
             </div>
             <!-- /.box-header -->
               <div class="box-body">
@@ -72,7 +72,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group" id="usernamecont">
-                        <label for="name">About Conference <span style="color:red;">*</span></label></label>
+                        <label for="name">About Congress <span style="color:red;">*</span></label></label>
                         <textarea class="form-control required"  rows="5" name="description" id="description"></textarea>
                       </div>
                     </div>
@@ -86,20 +86,20 @@
                   <div class="row">
                     <div class="col-md-3">
                       <div class="form-group" id="usernamecont">
-                        <label for="name">Conference Start Date# <span style="color:red;">*</span></label></label>
+                        <label for="name">Congress Start Date# <span style="color:red;">*</span></label></label>
                         <input type="date"  class="form-control required" name="startdate" id="startdate"/>
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group" id="usernamecont">
-                        <label for="name">Conference End Date#</label>
+                        <label for="name">Congress End Date#</label>
                         <input type="date" class="form-control" name="enddate" id="enddate"/>
                       </div>
                     </div>
 
                     <div class="col-md-3">
                       <div class="form-group" id="usernamecont">
-                        <label for="name">Conference Start Time# <span style="color:red;">*</span></label></label>
+                        <label for="name">Congress Start Time# <span style="color:red;">*</span></label></label>
                         <input type="time" class="form-control required"  name="starttime" id="starttime"/>
                       </div>
                     </div>
@@ -113,13 +113,13 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3" style="display:none">
                       <div class="form-group" >
                         <label for="name">Receive Abstract? <span style="color:red;">*</span></label></label>
                         <select class="form-control required"  name="receive_abstract" id="receie_abstract">
                           
                           <option value="1">Receive Abstract</option>
-                          <option value="0">Not Receiving Abstract</option>
+                          <option value="0" selected>Not Receiving Abstract</option>
                         </select>
                       </div>
                     </div>
@@ -153,13 +153,13 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group" >
-                        <label for="name">Conference Brochure</label>
+                        <label for="name">Congress Brochure</label>
                         <input type="file" class="form-control" accept="application/pdf" name="brochure" id="brochure"/>
                         <small style="color:brown;">Accepted Format - PDF</small>
                       </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6" style="display:none">
                       <div class="form-group">
                         <label for="firstname">Abstract Template</label>
                         <input id="abstract_temp" class="form-control" name="abstract_temp" multiple  type="file" >   
@@ -186,7 +186,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group" id="usernamecont">
-                        <label for="name">Conference Organizers & Contact Info <span style="color:red;">*</span></label></label>
+                        <label for="name">Congress Organizers & Contact Info <span style="color:red;">*</span></label></label>
                         <textarea class="form-control required" rows="5" name="organizers" id="organizers"></textarea>
                       </div>
                     </div>
@@ -299,7 +299,7 @@
 
                   <div class="row">
                       <div class="col-md-12">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add Conference</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add Congress</button>
                       </div>
                   </div>
                 </form>
