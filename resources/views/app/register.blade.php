@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
-                <a href="{{url('/')}}"><img src="{{asset('assets/img/mawuli.png')}}" alt="" width="159" height="35"></a>
+                <a href="{{url('/')}}"><img src="{{asset('assets/img/mawuli.png')}}" alt="" width="50" height="50"></a>
             </div>
            
         </div>
@@ -25,9 +25,9 @@
 </header>
 <!-- /Header -->
 
-<section class="parallax_window_in"  data-parallax="scroll" data-image-src="{{asset('assets/img/cardbg.jpeg')}}" data-natural-width="1400" data-natural-height="800">
+<section class="parallax_window_in"  data-parallax="scroll" data-image-src="{{asset('assets/img/mawuli_1.jpg')}}" data-natural-width="1400" data-natural-height="400">
     <div id="sub_content_in">
-        <h1>REGISTRATION PAGE</h1>
+        <h1>OMSU CONGRESS - 2023</h1>
         <a href="{{url('/')}}" class="btn_1 rounded">Go Home</a>
     </div>
 </section>
@@ -37,9 +37,10 @@
 
     <div class="container margin_60">
         <div class="main_title">
-            <h3><em></em>{{$conference->title}}</h3>
+            <h3><em></em>Complete the below form to register for OMSU Congress</h3>
+            <h3><em></em>Registration Fee GHC 150</h3>
             <p>
-                Complete the below form to register and attend Congress.
+                {{-- Complete the below form to register and attend Congress. --}}
             </p>
         </div>	
         <!--Team Carousel -->
@@ -81,7 +82,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group"  style="margin-bottom: 10px;">
                                         <label>Email Address <span style="color:red">*</span></label>
-                                        <input type="email" {{request()->get('email') != null ? 'readonly' : ''}} value="{{request()->get('email')}}" name="email" class="form-control required" placeholder="Your Email">
+                                        <input id="email" type="email" {{request()->get('email') != null ? 'readonly' : ''}} value="{{request()->get('email')}}" name="email" class="form-control required" placeholder="Your Email">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -94,53 +95,46 @@
             
                         
                             
-                                <div class="form-group"  style="margin-bottom: 10px;">
-                                    <label>Institution <span style="color:red">*</span></label>
-                                    <input type="text" name="institution" class="form-control required" placeholder="Institution">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"  style="margin-bottom: 10px;">
+                                        <label>Year Of Completion <span style="color:red">*</span></label>
+                                        <select class="wide required form-control" id="yearcompleted" name="yeargroup">
+                                            <option value="" disabled selected>Select an option</option>             
+                                        </select>
+                                    </div>
                                 </div>
 
-                                @if($conference->payment_categories != null && count($conference->payment_categories) > 0)
+                                <div class="col-md-6">
                                     <div class="form-group"  style="margin-bottom: 10px;">
-                                        <label>Registration Type<span style="color:red">*</span></label>
-                                        <div class="styled-select clearfix">
-                                            <select class="wide required form-control" id="regtype" name="regtype" onchange="updateRegFee(this)">
-                                                <option value="" disabled selected>Select an option</option>
-                                                @foreach($conference->payment_categories as $m)
-                                                    <option value="{{$m->id}}">{{$m->name}}</option>
-                                                @endforeach                   
-                                            </select>
-                                        </div>
-                                        <p style="font-size: 16px; font-weight:bold; color:red; margin-top: 15px;" id="regfeeinfo"></p>
+                                        <label>House Of Residence <span style="color:red">*</span></label>
+                                        <select class="wide required form-control" id="house" name="house" >
+                                            <option value="" disabled selected>Select an option</option>
+                                            <option value="Aggrey" >Aggrey</option>
+                                            <option value="Lincoln" >Lincoln</option>
+                                            <option value="Wilberforce" >Wilberforce</option>
+                                            <option value="Aku" >Aku</option>     
+                                        </select>
                                     </div>
+                                </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-group"  style="margin-bottom: 10px;">
-                                        <label>State Mode of Payment <span style="color:red">*</span></label>
-                                        <div class="styled-select clearfix">
-                                            <select class="wide required form-control" id="paymode" name="paymode">
-                                                <option value="" disabled selected>Select an option</option>
-                                                @foreach($paymentmodes as $p)
-                                                    <option value="{{$p->id}}">{{$p->name}}</option>
-                                                @endforeach                          
-                                            </select>
-                                        </div>
+                                        <label>WhatsApp No (Optional)</label>
+                                        <input type="text" name="whatsapp" class="form-control" placeholder="Your Whatsapp No.">
                                     </div>
-                                @else
-                                    <div class="form-group"  style="margin-bottom: 10px;">
-                                        <label>Occupation <span style="color:red">*</span></label>
-                                        <div class="styled-select clearfix">
-                                            <select class="wide required form-control" id="occupation" name="occupation">
-                                                <option value="" disabled selected>Select an option</option>
-                                                <option value="Researcher">Researcher</option>                           
-                                                <option value="Other">Other</option>                           
-                                            </select>
-                                        </div>
-                                    </div>
+                                </div>
+                            </div>
+
+                              
 
                                 <div class="form-group" id="othercontainer"  style="margin-bottom: 10px;" hidden >
                                     <label>Specify <span style="color:red">*</span></label>
                                     <input type="text" name="specify" class="form-control" placeholder="Specify">
                                 </div>
-                                @endif
+               
                             
                        
                     <div id="bottom-wizard">
@@ -161,19 +155,59 @@
 <div class="modal " id="regModal" data-bs-backdrop='static'>
     <div class="modal-dialog">
       <div class="modal-content">
-  
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Select An Option</h4>
+          <h4 class="modal-title">Registration Fee Payment</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-  
         <!-- Modal body -->
         <div class="modal-body" style="display:flex; flex-direction:column;">
-          <img src="{{asset('assets/img/check.png')}}" style="height: 80px; width: 80px; align-self:center;" class="img-fluid"/>
+          <img src="{{asset('assets/img/mawuli.png')}}" style="height: 80px; width: 80px; align-self:center;" class="img-fluid"/>
+       
           <p id="resmessage" style="align-self: center; font-size: 20px;"></p>
           {{-- <a href="#" id="submiturl" class="btn_1 btn-block rounded">Submit Abstract (Paper)</a> --}}
-          <a href="#" id="downloadurl" type="button" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Close & Download Proof</a>
+          {{-- <a href="#" id="downloadurl" type="button" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Close & Download Proof</a> --}}
+          <button onclick="makePayment()" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Pay GHC 150 Registration Fee</button>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          {{-- <button type="button" class="btn btn-" data-dismiss="modal">Close</button> --}}
+        </div>
+  
+      </div>
+    </div>
+</div>
+
+<div class="modal " id="passwordModal" data-bs-backdrop='static'>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">OMSU Global Account</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body" style="display:flex; flex-direction:column;">
+          <img src="{{asset('assets/img/mawuli.png')}}" style="height: 80px; width: 80px; align-self:center;" class="img-fluid"/>
+       
+          <h4>Kindly set your OMSU Global Account Password.</h4>
+          <form id="setAccountForm">
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" name="email" type="email" id="omsuemail"/>
+            </div>
+
+            <div class="form-group">
+                <label> Password</label>
+                <input class="form-control" name="cpassword" id="cpassword" type="password"/>
+            </div>
+
+            <button type="submit" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Set Password</button>
+          </form>
+          {{-- <a href="#" id="submiturl" class="btn_1 btn-block rounded">Submit Abstract (Paper)</a> --}}
+          {{-- <a href="#" id="downloadurl" type="button" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Close & Download Proof</a> --}}
+          
         </div>
   
         <!-- Modal footer -->
@@ -200,50 +234,29 @@
 {{-- <script src="{{asset('assets/js/functions.js')}}"></script> --}}
 <script src="{{asset('assets/js/parallax.min.js')}}"></script>
 <script src="{{asset('assets/js/owl-carousel.js')}}"></script>
-<script>
-"use strict";
-$(".team-carousel").owlCarousel({
-        items: 1,
-        loop: false,
-        margin: 10,
-        autoplay: false,
-        smartSpeed: 300,
-        responsiveClass: false,
-        responsive: {
-            320: {
-                items: 1,
-            },
-            768: {
-                items: 2,
-            },
-            1000: {
-                items: 3,
-            }
-        }
-    });
-</script>
-
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{asset('assets/js/app.js')}}"></script>
 
 <script>
     $(function(){
-        $('#occupation').on('change', function(){
-            var selected = $(this).val();
-            console.log(selected);
-            if(selected == "Other"){
-                $('#othercontainer').removeAttr('hidden');
-            }else{
-                $('#othercontainer').attr('hidden', 'hidden');
-            }
-        })
+
+        var startyear = 1950;
+
+        for(i=startyear; i< parseInt(new Date().getFullYear()); i++){
+            $('#yearcompleted').append(` <option value="${i}">${i}</option>`);
+        } 
     })
    
+    var regemail = $('#email').val();
+    var regno = "";
+
     $('#wrapped').submit(function(event){
         event.preventDefault();
         var form = $("form#wrapped");
         form.validate();
         if (form.valid()) {
             Swal.fire({
-                title: "Registering For Conference",
+                title: "Registering For Congress",
                 text: "Are you sure?",
                 icon: 'warning',
                 showCancelButton: true,
@@ -261,20 +274,13 @@ $(".team-carousel").owlCarousel({
                                 if(response.status == 'success'){
                                     $("#loader_form").fadeOut();
                                     $('#resmessage').text(response.message);
-                                    $("#submiturl").attr("href", "{{url('/submit-new-abstract?cid=')}}"+response.token+'&email='+response.email+'&regcode='+response.regno)
+                                    // $("#submiturl").attr("href", "{{url('/submit-new-abstract?cid=')}}"+response.token+'&email='+response.email+'&regcode='+response.regno)
                                     // console.log(response);
+                                    regemail = response.email;
+                                    regno = response.regno;
                                     $('#downloadurl').attr("href", response.url)
                                     $('#regModal').modal({backdrop: 'static', keyboard: false},'show');
-                                    // Swal.fire(
-                                    //     'Success',
-                                    //     response.message,
-                                    //     'success'
-                                    // ).then(() => {
-                                    //     window.location.href = response.url;
-                                    // });
-                                    // setTimeout(() => {
-                                    //     window.location.href = response.url;
-                                    // }, 1000);
+
                                 }else{
                                     $("#loader_form").fadeOut();
                                     Swal.fire(
@@ -300,25 +306,42 @@ $(".team-carousel").owlCarousel({
     })
 
 
-    function updateRegFee(selectObject){
-        var val = selectObject.value;
 
-        $.ajax({
-            url: "{{url('/get-reg-amount')}}",
-            method: "POST",
-            data: {id: val, _token:"{{Session::token()}}"},
-            success: function (res){
-                if(res.status == 'success'){
-                    $('#regfeeinfo').text('NB: Registration requires an an amount of '+(res.pay.currency == null?"GHC":res.pay.currency)+' '+ res.amount)
-                }else{
-                  console.log(res);  
-                }
-            },
-            error: function(error){
-                console.log(error);
+    $('#setAccountForm').submit(function(event) {
+        event.preventDefault();
+        var password = $('#cpassword').val();
+        $.post("/set-acc-password", {password: password, email: $('#omsuemail').val(), _token: "{{Session::token()}}"}, function(response){
+            if(response.status == 'success'){
+                Swal.fire(
+                    'Account Successfully Created',
+                    response.message,
+                    'success'
+                ).then(() => {
+                    window.location.href="{{url('/omsu-dashboard')}}";
+                });
+            }else{
+                Swal.fire(
+                    'Error',
+                    response.message,
+                    'error'
+                );
             }
         })
+    })
+
+
+    function makePayment(){
+        // alert( regno);
+        $('#omsuemail').val(regemail).prop('disabled', true);
+        payWithPaystack(regno, regemail, "{{Session::token()}}");
     }
+
+
+    
+
+
+
+
 
  </script>
 @stop

@@ -11,6 +11,7 @@ use App\Models\ConferenceAbstract;
 use App\Models\Document;
 use App\Models\PaymentCategory;
 use App\Models\PaymentMode;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -18,11 +19,17 @@ use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use ZipArchive;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class MainController extends Controller
 {
+
+    public function login(){
+        return view('app.login');
+    }
     public function verifyReg(Request $request){
         $cid = $request->query('cid'. null);
         if($cid == null){
@@ -89,9 +96,9 @@ class MainController extends Controller
         if($cid == null){
             return back();
         }
-        $paymentmodes = PaymentMode::all();
-        $conference = Conference::where('token', $cid)->with('payment_categories')->first();
-        return view('app.register',compact('conference', 'paymentmodes'));
+        // $paymentmodes = PaymentMode::all();
+        $conference = Conference::where('token', $cid)->first();
+        return view('app.register',compact('conference'));
     }
 
     public function conferenceDetails(Request $request){
@@ -422,50 +429,53 @@ class MainController extends Controller
                     'message' => 'You have already registered for conference using the email '.$request->email
                 ]);
             }
-            // Log::info($request->all());
-            // $conference = Conference::where('token', $request->cid)->first();
-            $theRegType = '';
-            $regtype = null;
-            if(isset($request->regtype)){
-                $regtype = PaymentCategory::where('id', $request->regtype)->first();
-                $theRegType = $regtype->name;
-            }else{
-                $theRegType = $request->occupation == 'Other' ? $request->occupation.' | '.$request->specify : $request->occupation;
-            }
-
-            $paymentmode = PaymentMode::where('id', $request->paymode)->first();
-
-            $regno = strtoupper(substr($conference->title, 0, 3).mt_rand(100000, 9999999));
+            
+            $regno = strtoupper(mt_rand(1000, 999999999));
             $application = Application::create([
                 'firstname' => $request->firstname,
                 'lastname' => $request->lastname,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'institution' => $request->institution,
-                'occupation' => $theRegType,
+                'house' => $request->house,
+                'yeargroup' => $request->yeargroup,
+                'occupation' => '',
                 'extras' => json_encode([]),
                 'conference_token' => $request->cid,
                 'conference_id' => $conference?->id,
                 'title' => $request->title,
-                'payment_category_id' => $request->regtype,
-                'payment_category_name' => $paymentmode?->name,
                 'reg_no' => $regno,
-                'reg_amount' => $regtype != null ? $regtype?->amount: "0",
-                'reg_currency' => $regtype != null ? $regtype?->currency: "GHS"
+                'amount' => $request->amount,
+                'reg_amount' => $request->amount,
+                'reg_currency' => "GHS"
             ]);
 
-            $brochure_url =  url('/conference-docs?cid='.$conference?->token.'&conferenceid='.$conference->id.'&email='.$request->email);
-            QrCode::size(200)
-                ->format('svg')
-                ->generate($brochure_url, storage_path('app/public/qrcodes/'.$application->reg_no.'_qrcode.svg'));
-            $data =[
-                'application' => $application,
-                'conference' => $conference
-            ];
-    
-            Pdf::loadView('pdf.registration', $data)->save(storage_path('app/public/emails/Proof_Of_Registration'.$regno.'.pdf'));
 
-            dispatch(new ProcessRegistrationEmail($application, $conference, $request->email));
+            $user = User::where('email', $request->email)->first();
+            if($user == null) {
+                User::create([
+                    'email' => $request->email,
+                    'firstname' => $request->firstname,
+                    'lastname' => $request->lastname,
+                    'phone' => $request->phone,
+                    'house' => $request->house,
+                    'yeargroup' => $request->yeargroup,
+                    'whatsapp' => $request->whatsapp,
+                    'password' => Hash::make("Omsu@".$request->yeargroup)
+                ]);
+            }
+
+            // $brochure_url =  url('/conference-docs?cid='.$conference?->token.'&conferenceid='.$conference->id.'&email='.$request->email);
+            // QrCode::size(200)
+            //     ->format('svg')
+            //     ->generate($brochure_url, storage_path('app/public/qrcodes/'.$application->reg_no.'_qrcode.svg'));
+            // $data =[
+            //     'application' => $application,
+            //     'conference' => $conference
+            // ];
+    
+            // Pdf::loadView('pdf.registration', $data)->save(storage_path('app/public/emails/Proof_Of_Registration'.$regno.'.pdf'));
+
+            // dispatch(new ProcessRegistrationEmail($application, $conference, $request->email));
 
             return response()->json([
                 'status' => 'success',
@@ -473,7 +483,7 @@ class MainController extends Controller
                 'email' => $request->email,
                 'regno' => $regno,
                 'url' => url('/reg-success?regno='.$regno.'&conference='.$conference->id.'&email='.$request->email),
-                'message' => 'You have successfully registered to attend the conference. Our team will contact you shortly'
+                'message' => 'Make the payment of GHC 150 to complete you registration '
             ]);
         }catch(Exception $e){
             if($application != null){
@@ -486,6 +496,93 @@ class MainController extends Controller
             ]);
         }
     }
+
+
+    public function completeRegistration(Request $request){
+        try{
+            $application = Application::where('reg_no', $request->regno)->where('email', $request->email)->first();
+            $application->update([
+                'paid' => "Yes",
+                'reference' => $request->reference,
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'You have successfully registered for OMSU Congress - 2023. Please enter password to login to OMSU portal'
+            ]);
+        }catch(Exception $e){
+            Log::info("PAYMENT SUCCESSFULL BUT UNABLE TO COMPLETE USER REGISTRATION");
+            Log::info($request->all());
+            return response()->json([
+                'status' => 'error',
+                'message' => 'OOps something went wrong. Please contact admin to rectify issue'
+            ]);
+        }
+    }
+
+
+
+    public function setAccountPassword(Request $request){
+        try{
+            $user = User::where('email', $request->email)->first();
+            if($user == null){
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'OOps something went wrong. Unable to set password'
+                ]);
+            }
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+           if( Auth::attempt(['email' => $request->email, 'password' => $request->password ])){
+                $request->session()->regenerate();
+           }
+            return response()->json([
+                'status' => 'success',
+                'message' => 'You have successfully set your OMSU global password'
+            ]);
+        }catch(Exception $e){
+            Log::error($e);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'OOps something went wrong. Unable to set password'
+            ]);
+        }
+    }
+
+
+
+    public function myOmsuDhasboard(){
+        return view('app.dashboard');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
 
     public function downloadAbstractTemplate(Request $request){
         try{
@@ -694,10 +791,10 @@ class MainController extends Controller
         }else{
             $documents = Document::where('conference_id', $conference->id)->get();
             return view('app.conferencedocs', compact('documents', 'conference'));
-        }
-
-        
-        
+        } 
     }
+
+
+    
 }
 

@@ -20,7 +20,11 @@ Route::get('/bcrypt', function () {
     return Hash::make('password');
 });
 
-Route::get('/', [MainController::class, 'index']);
+Route::get('/congress', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'login']);
+Route::post('complete-registration',[MainController::class, 'completeRegistration'] );
+Route::post('/set-acc-password', [MainController::class, 'setAccountPassword'] );
+Route::get('/omsu-dashboard', [MainController::class, 'myOmsuDhasboard'] );
 Route::get('/apply-now', [MainController::class, 'apply']);
 Route::post('/apply-now', [MainController::class, 'applyForConference']);
 Route::get('/submit-abstract', [MainController::class, 'conferenceAbstract']);
