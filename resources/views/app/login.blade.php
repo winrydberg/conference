@@ -111,7 +111,7 @@
             })
         })
        
-        $('#wrapped').submit(function(event){
+        $('#wrapped').submit(function(event){ 
             event.preventDefault();
             var form = $("form#wrapped");
             form.validate();

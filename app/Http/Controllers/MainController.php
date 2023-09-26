@@ -519,6 +519,20 @@ class MainController extends Controller
         }
     }
 
+     public function authenticate(Request $request){
+        if( Auth::attempt(['email' => $request->email, 'password' => $request->password ])){
+            return response()->json([
+                'status' => 'success',
+                'url' => url('/profile'),
+                'message' => 'Login successful. Redirecting to admin dashboard'
+            ]);
+       }else{
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Invalid Username or Password'
+        ]);
+       }
+     }
 
 
     public function setAccountPassword(Request $request){

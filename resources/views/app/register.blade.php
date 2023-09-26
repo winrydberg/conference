@@ -310,7 +310,7 @@
     $('#setAccountForm').submit(function(event) {
         event.preventDefault();
         var password = $('#cpassword').val();
-        $.post("/set-acc-password", {password: password, email: $('#omsuemail').val(), _token: "{{Session::token()}}"}, function(response){
+        $.post("{{url('/set-acc-password')}}", {password: password, email: $('#omsuemail').val(), _token: "{{Session::token()}}"}, function(response){
             if(response.status == 'success'){
                 Swal.fire(
                     'Account Successfully Created',

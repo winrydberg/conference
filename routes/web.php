@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 
@@ -83,6 +84,19 @@ Route::group(['middleware' => 'auth:admin'], function(){
 });
 
 Route::get('/logout', [AdminController::class, 'logout']);
+
+
+Route::post('/login',[MainController::class,'authenticate']);
+Route::get('/profile-logout',[UserController::class,'logout']);
+
+
+Route::group(['middleware' => 'auth'], function(){
+
+    Route::get('/profile', [UserController::class, 'profile']);
+    Route::get('/year-group', [UserController::class, 'yearGroup']);
+    Route::get('/payments', [UserController::class, 'payments']);
+    Route::post('/save-profile', [UserController::class, 'saveProfile']);
+});
 
 
 
