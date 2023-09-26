@@ -34,13 +34,18 @@
                             <thead>
                             <tr>
                               <th>ID#</th>
-                              {{-- <th>TITLE</th> --}}
+                              <th>TITLE</th>
                               <th>NAME</th>
+                              <th>GENDER</th>
                               <th>EMAIL</th>
                               <th>PHONE NO#</th>
-                              <th>INSTITUTION</th>
-                              <th>OCCUPATION / STUDENT TYPE</th>
+                              <th>HOUSE</th>
+                              <th>YEAR GROUP</th>
+                              <th>REG TYPE</th>
                               <th>REG. AMOUNT</th>
+                              <th>PAID</th>
+                              <th>REG NO</th>
+                              <th>PAYMENT REFERENCE</th>
                               {{-- <th>ACTION</th> --}}
                             </tr>
                             </thead>
@@ -48,13 +53,18 @@
                                 @foreach ($registrants as $key =>  $c )
                                   <tr>
                                     <td>#{{$key + 1}}</td>
-                                    {{-- <td>{{$c->title}}</td> --}}
+                                    <td>{{$c->title}}</td>
                                     <td>{{$c->firstname.' '.$c->lastname}}</td>
+                                    <td>{{$c->gender}}</td>
                                     <td>{{$c->email}}</td>
                                     <td>{{$c->phone}}</td>
-                                    <td>{{$c->institution}}</td>
-                                    <td>{{$c->occupation == 'Other' ? $c->occupation. ' - '.$c->specify : $c->occupation }}</td>
+                                    <td>{{$c->house}}</td>
+                                    <td>{{$c->yeargroup}}</td>
+                                    <td>{{$c->status }}</td>
                                     <td>{{$c->reg_currency.' '.$c->reg_amount}}</td>
+                                    <td>{{$c->paid }}</td>
+                                    <td>{{$c->reg_no }}</td>
+                                    <td>{{$c->reference }}</td>
 
                                     {{-- <td>
                                       <a href="{{url('/download-abstract?conferenceid='.$c->id)}}" class="btn btn-sm bg-purple"> <i class="fa fa-donwload"></i> Download Abstract</a>

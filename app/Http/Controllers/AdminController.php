@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AlumniExport;
 use App\Exports\ConferenceAbstractExport;
 use App\Exports\RegistrantsExport;
 use App\Jobs\ProcessAbstractApproval;
@@ -13,9 +14,11 @@ use App\Models\Document;
 use App\Models\PaymentCategory;
 use App\Models\PaymentMode;
 use App\Models\Sponsor;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -29,7 +32,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class AdminController extends Controller
 {
     // private $staffURL = "#";
-    public $staffURL = 'https://sts.ug.edu.gh/services/api/itse/ugmobile/authenticate/outh_staff_with_id?itse_key=iEhJVAFeWNoUKZSmfsRXBQfRUEM1k4ln52CvDrxu&itse_secret=cUJhEDGXfVb2iLWySmFPN9njiKwqJcs8Ag0F2ph4';
+    //public $staffURL = '';
 
     public function login(){
         return view('admin.login');
@@ -69,31 +72,30 @@ class AdminController extends Controller
 
     public function index(){
         $admin = Auth::guard('admin')->user();
-        $upcoming = [];
-        $upcomingcount = 0;
-        $concount = 0;
-        if($admin->hasRole('UGCS-ADMIN')){
-            $upcoming = Conference::withCount('registrants', 'abstracts')->where('startdate', '>=', date('Y-m-d'))->get();
-            $upcomingcount = Conference::where('startdate', '>=', date('Y-m-d'))->count();
-            $concount = Conference::count();
-        }else{
-            $permissions = $admin->getAllPermissions();
+        $upcoming = Conference::withCount('registrants', 'abstracts')->get();
+        $upcomingcount = Conference::where('startdate', '>=', date('Y-m-d'))->count();
+        $concount = Conference::count();
 
-            // dd(count($permissions));
-            
-            foreach($permissions as $p){
-                $conferences = Conference::withCount('registrants', 'abstracts')
-                                            ->where('startdate', '>=', date('Y-m-d'))
-                                            ->where('permission_tag', $p->name)->get();
-                
-                foreach($conferences as $c){
-                    $concount += 1;
-                    $upcomingcount += 1;
-                    array_push($upcoming, $c);
-                }
-            }
+        // $conferences = Conference::withCount('registrants', 'abstracts')->get();    
+        // foreach($conferences as $c){
+        //     array_push($upcoming, $c);
+        // }
+        $stats = [];
+        foreach($upcoming as $c){
+            $data = DB::table('applications')
+                 ->select('yeargroup', DB::raw('count(*) as total'))
+                 ->groupBy('yeargroup')
+                 ->get();
+            $tempd = [
+                'conference' => $c,
+                'statistics' => $data
+            ];
+
+            array_push($stats, $tempd);
         }
-        return view('admin.index', compact('upcoming', 'concount', 'upcomingcount'));
+    
+        // dd($stats[0]['statistics']);
+        return view('admin.index', compact('upcoming', 'concount', 'upcomingcount', 'stats'));
     }
 
     public function newConference(){
@@ -798,6 +800,17 @@ class AdminController extends Controller
                  'message' => 'Unable to delete attachment. Please try again'
              ]);
          }
+    }
+
+
+    public function alumni(){
+        $users = User::all();
+        return view('admin.alumni', compact('users'));
+    }
+
+    public function alumniExport(){
+        $name = "AlumniExport.xlsx";
+        return Excel::download(new AlumniExport(), $name);
     }
 
 }

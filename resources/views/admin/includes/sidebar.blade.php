@@ -1,11 +1,13 @@
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar" style="background-color: #000073;">
+  <aside class="main-sidebar" style="background-color: #2c5336;">
+    
     <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+    <section class="sidebar"  style="background-color: #2c5336;">
+
       <!-- Sidebar user panel -->
       <div class="user-panel">
    
-
+        
       </div>
 
       <ul class="sidebar-menu" data-widget="tree">
@@ -30,6 +32,18 @@
             </ul>
         </li> 
         {{-- @endhasanyrole --}}
+
+        <li class="">
+            <a href="{{url('/registrants?conferenceid=1')}}">
+              <i class="fa fa-dashboard"></i> <span>CONGRESS 2023 </span>
+            </a>
+        </li>
+
+        <li class="">
+            <a href="{{url('/alumni')}}">
+              <i class="fa fa-dashboard"></i> <span>ALUMI</span>
+            </a>
+        </li>
 
 
           @role('UGCS-ADMIN')

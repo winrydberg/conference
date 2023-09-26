@@ -20,7 +20,7 @@ class RegistrantsExport implements FromCollection, WithHeadings, ShouldAutoSize
     */
     public function collection()
     {
-        return Application::select('id','firstname', 'lastname', 'email', 'phone', 'institution', 'occupation', 'reg_currency', 'reg_amount','created_at')->where('conference_id', $this->conferenceid)->get();
+        return Application::select('id','firstname', 'lastname', 'email', 'phone', 'house', 'yeargroup', 'reg_currency', 'reg_amount', 'paid', 'status', 'reg_no', 'reference','created_at')->where('conference_id', $this->conferenceid)->get();
     }
 
     public function headings(): array
@@ -31,11 +31,15 @@ class RegistrantsExport implements FromCollection, WithHeadings, ShouldAutoSize
             'LAST NAME',
             'EMAIL',
             'PHONE NO#',
-            'INSTITUTION',
-            'OCCUPATION / STUDENT TYPE',
+            'HOUSE',
+            'YEAR GROUP',
             'CURRENCY',
             'AMOUNT',
-            'SUBMITTED DATE',
+            'PAID',
+            'STATUS',
+            'REG NO',
+            'PAYMENT REFERENCE',
+            'REG DATE',
         ];
     }
 }

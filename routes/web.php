@@ -53,6 +53,8 @@ Route::get('/verify-abstract', [MainController::class, 'verifyAbstract']);
 Route::post('/verify-abstract', [MainController::class, 'sendAbstractEmail']);
 
 Route::group(['middleware' => 'auth:admin'], function(){
+    Route::get('/alumni', [AdminController::class, 'alumni']);
+    Route::get('/alumni-export', [AdminController::class, 'alumniExport']);
     Route::get('/admin-dashboard', [AdminController::class, 'index']);
     Route::get('/new-conference', [AdminController::class, 'newConference']);
     Route::post('/new-conference', [AdminController::class, 'saveNewConference']);
