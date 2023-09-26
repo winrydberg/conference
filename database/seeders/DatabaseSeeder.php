@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            ConferenceSeeder::class,
-            AdminSeeder::class,
-            // PaymentModeSeeder::class,
+            // ConferenceSeeder::class,
+            // AdminSeeder::class,
+            PaymentModeSeeder::class,
         ]);
     }
 }

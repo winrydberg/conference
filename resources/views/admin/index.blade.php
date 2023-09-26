@@ -24,7 +24,7 @@
                     <span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
 
                     <div class="info-box-content">
-                    <span class="info-box-text">TOTAL CONGRESS</span>
+                    <span class="info-box-text">TOTAL CONFERENCES</span>
                     <span class="info-box-number"> {{$concount}} </span>
 
                     <div class="progress">
@@ -44,7 +44,7 @@
                     <span class="info-box-icon"><i class="fa fa-file-o"></i></span>
 
                     <div class="info-box-content">
-                    <span class="info-box-text">UPCOMING CONGRESS</span>
+                    <span class="info-box-text">UPCOMING CONFERENCES</span>
                     <span class="info-box-number"> {{$upcomingcount}} </span>
 
                     <div class="progress">
@@ -70,7 +70,7 @@
   
                   <div class="box box-default">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Upcoming Congress</h3>
+                      <h3 class="box-title">Upcoming Conferences</h3>
   
                       <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -107,7 +107,7 @@
                                             <td>
                                               <a href="{{url('/edit-conference?conferenceid='.$c->id)}}" class="btn btn-sm btn-info"> <i class="fa fa-edit"></i> Edit</a>
                                               {{-- <button class="btn btn-primary"> <i class="fa fa-eye"></i> Details</button> --}}
-                                         
+                                              <a href="{{url('/view-abstract?conferenceid='.$c->id)}}" class="btn btn-sm bg-purple"> <i class="fa fa-file"></i> View Abstracts</a>
                                               <a href="{{url('/registrants?conferenceid='.$c->id)}}" class="btn btn-sm bg-navy"> <i class="fa fa-users"></i> Registrants</a>
                                               <a href="{{url('/add-documents?conferenceid='.$c->id)}}" class="btn btn-sm btn-warning"> <i class="fa fa-upload"></i> Add Documents</a>
                                             </td>

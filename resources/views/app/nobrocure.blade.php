@@ -30,7 +30,7 @@
                     {{-- </div> --}}
                 </div>
             
-                <div class="copy">© {{date('Y')}}</div>
+                <div class="copy">© {{date('Y')}} UGCS</div>
             </div>
             <!-- /content-left-wrapper -->
         </div>
@@ -45,7 +45,7 @@
                         <div style="display:flex; align-items:center; justify-content: center; flex-direction:column;">
                             <h5>{{$conference?->title}}</h5>
                             <img src="{{asset('assets/img/cancel.png')}}" style="height: 6rem; width: 6rem; align-self:center;" alt="" class="img-fluid">
-                            <h3 class="main_question" style="margin-top: 30px;">Oops, No Brochure Available. Congress Brochure not uploaded yet.</h3>
+                            <h3 class="main_question" style="margin-top: 30px;">Oops, No Brochure Available. Conference Brochure not uploaded yet.</h3>
                         </div>
                     </div>
                     <!-- /top-wizard -->

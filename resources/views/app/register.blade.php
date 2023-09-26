@@ -12,7 +12,7 @@
 @stop
 
 @section('content')
-<header>
+<header  style='background-color: #234f1e;border:none'>
     <div class="container-fluid">
         <div class="row">
             <div class="col-3">
@@ -38,7 +38,7 @@
     <div class="container margin_60">
         <div class="main_title">
             <h3><em></em>Complete the below form to register for OMSU Congress</h3>
-            <h3><em></em>Registration Fee GHC 150</h3>
+            <h3><em></em></h3>
             <p>
                 {{-- Complete the below form to register and attend Congress. --}}
             </p>
@@ -57,9 +57,13 @@
                                 <div class="styled-select clearfix ">
                                     <select class="wide required form-control" name="title">
                                         <option value="" disabled selected>Title</option>
-                                        <option value="Mr">Mr</option>
-                                        <option value="Mrs">Mrs</option>
-                                        <option value="Miss">Miss</option>                           
+                                        <option value="Mr.">Mr.</option>
+                                        <option value="Miss">Miss</option><option value="Mrs.">Mrs.</option>
+                                        <option value="Dr.">Dr.</option>
+                                        <option value="Rev.">Rev.</option>
+                                        <option value="Rev. Sr.">Rev. Sr.</option>
+                                        <option value="Imam">Imam</option>
+                                        <option value="Prof">Prof</option>                          
                                     </select>
                                 </div>
                             </div>
@@ -74,6 +78,19 @@
                                     <div class="form-group">
                                         <label>Last Name <span style="color:red">*</span></label>
                                         <input type="text" name="lastname" class="form-control required" placeholder="Last Name">
+                                    </div>
+                                </div>
+                           </div>
+                           
+                           <div class="row"  style="margin-bottom: 10px;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Gender <span style="color:red">*</span></label>
+                                        <select name="gender" class="form-control required" id='gender'>
+                                            <option value=''>Please Select</option>
+                                            <option value='Male'>Male</option>
+                                            <option value='Female'>Female</option>
+                                            </select>
                                     </div>
                                 </div>
                            </div>
@@ -110,10 +127,7 @@
                                         <label>House Of Residence <span style="color:red">*</span></label>
                                         <select class="wide required form-control" id="house" name="house" >
                                             <option value="" disabled selected>Select an option</option>
-                                            <option value="Aggrey" >Aggrey</option>
-                                            <option value="Lincoln" >Lincoln</option>
-                                            <option value="Wilberforce" >Wilberforce</option>
-                                            <option value="Aku" >Aku</option>     
+                                           
                                         </select>
                                     </div>
                                 </div>
@@ -124,6 +138,20 @@
                                     <div class="form-group"  style="margin-bottom: 10px;">
                                         <label>WhatsApp No (Optional)</label>
                                         <input type="text" name="whatsapp" class="form-control" placeholder="Your Whatsapp No.">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"  style="margin-bottom: 10px;">
+                                        <label>Current Status</label>
+                                        <select name="status" class="form-control" id='status' required>
+                                            <option value=''>Please select</option>
+                                               <option value='Tertiary'>Tertiary Student</option>
+                                                <option value='Pre-Tertiary'>Pre-Tertiary Student</option>
+                                                 <option value='Worker'>Worker</option>
+                                            </select>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +195,7 @@
           <p id="resmessage" style="align-self: center; font-size: 20px;"></p>
           {{-- <a href="#" id="submiturl" class="btn_1 btn-block rounded">Submit Abstract (Paper)</a> --}}
           {{-- <a href="#" id="downloadurl" type="button" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Close & Download Proof</a> --}}
-          <button onclick="makePayment()" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Pay GHC 150 Registration Fee</button>
+          <button onclick="makePayment()" style="margin-top: 30px;" class="btn btn-danger btn-block rounded" id="paybtn">Pay GHC 150 Registration Fee</button>
         </div>
   
         <!-- Modal footer -->
@@ -201,6 +229,11 @@
             <div class="form-group">
                 <label> Password</label>
                 <input class="form-control" name="cpassword" id="cpassword" type="password"/>
+            </div>
+            
+            <div class="form-group">
+                <label> Confirm Password</label>
+                <input class="form-control" name="ccpassword" id="ccpassword" type="password"/>
             </div>
 
             <button type="submit" style="margin-top: 30px;" class="btn btn-danger btn-block rounded">Set Password</button>
@@ -240,15 +273,36 @@
 <script>
     $(function(){
 
-        var startyear = 1950;
+        var startyear = 1990;
 
         for(i=startyear; i< parseInt(new Date().getFullYear()); i++){
             $('#yearcompleted').append(` <option value="${i}">${i}</option>`);
         } 
     })
+    
+    
+    
+    $('#gender').change(function(){
+         $('#house').html(` <option value="">Please select</option>`)
+        if($(this).val()=='Male'){
+            var halls = ['Aggrey','Lincoln','Wilberforce','Trost','Aku']
+            for(i=0; i< halls.length; i++){
+            $('#house').append(` <option value="${ halls[i] }">${ halls[i] }</option>`);
+           } 
+          
+        }
+        if($(this).val()=='Female'){
+             var halls = ['Nightingale','Slessor','Priscilla','Snitker','Solace']
+              for(i=0; i< halls.length; i++){
+            $('#house').append(` <option value="${ halls[i] }">${ halls[i] }</option>`);
+           } 
+            
+        }
+    })
    
     var regemail = $('#email').val();
     var regno = "";
+    var amount = 150;
 
     $('#wrapped').submit(function(event){
         event.preventDefault();
@@ -278,6 +332,8 @@
                                     // console.log(response);
                                     regemail = response.email;
                                     regno = response.regno;
+                                    amount = response.amount;
+                                    $('#paybtn').text(`Pay GHC ${amount} Registration Fee`)
                                     $('#downloadurl').attr("href", response.url)
                                     $('#regModal').modal({backdrop: 'static', keyboard: false},'show');
 
@@ -306,9 +362,25 @@
     })
 
 
+  $('#setAccountForm').validate({
+                  rules: {
+                   cpassword: {
+                   required:true
+                   },
+                    ccpassword: {
+                
+                    equalTo : "#cpassword"
+                }
+            }
+        });
+
+
 
     $('#setAccountForm').submit(function(event) {
         event.preventDefault();
+        var form = $("form#setAccountForm");
+        form.validate();
+           if (form.valid()) {
         var password = $('#cpassword').val();
         $.post("{{url('/set-acc-password')}}", {password: password, email: $('#omsuemail').val(), _token: "{{Session::token()}}"}, function(response){
             if(response.status == 'success'){
@@ -317,7 +389,7 @@
                     response.message,
                     'success'
                 ).then(() => {
-                    window.location.href="{{url('/omsu-dashboard')}}";
+                    window.location.href="{{url('/profile')}}";
                 });
             }else{
                 Swal.fire(
@@ -327,13 +399,14 @@
                 );
             }
         })
+           }
     })
 
 
     function makePayment(){
         // alert( regno);
         $('#omsuemail').val(regemail).prop('disabled', true);
-        payWithPaystack(regno, regemail, "{{Session::token()}}");
+        payWithPaystack(regno, regemail, "{{Session::token()}}",amount);
     }
 
 

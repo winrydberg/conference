@@ -420,17 +420,24 @@ class MainController extends Controller
 
     public function applyForConference(Request $request){
         $application = null;
+        $today = date('Y-m-d');
+        
+        if ($today > '2023-10-17') {
+        $amount = $request->status=='Worker' ? 200 : 80;
+        }else{
+        $amount = $request->status=='Worker' ? 150 : 80;
+        }
         try{
             $conference = Conference::where('token', $request->cid)->first();
-            $application = Application::where('email', $request->email)->where('conference_id', $conference?->id)->first();
+            $application = Application::where('email', $request->email)->where('conference_id', $conference?->id)->whereNotNull('paid')->first();
             if($application != null){
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'You have already registered for conference using the email '.$request->email
+                    'message' => 'You have already registered for congress using the email '.$request->email
                 ]);
             }
             
-            $regno = strtoupper(mt_rand(1000, 999999999));
+            $regno = strtoupper(mt_rand(10000000, 999999999));
             $application = Application::create([
                 'firstname' => $request->firstname,
                 'lastname' => $request->lastname,
@@ -444,9 +451,10 @@ class MainController extends Controller
                 'conference_id' => $conference?->id,
                 'title' => $request->title,
                 'reg_no' => $regno,
-                'amount' => $request->amount,
-                'reg_amount' => $request->amount,
-                'reg_currency' => "GHS"
+                'reg_amount' => $amount,
+                'reg_currency' => "GHS",
+                'status'=>$request->status,
+                'gender'=>$request->gender
             ]);
 
 
@@ -458,6 +466,7 @@ class MainController extends Controller
                     'lastname' => $request->lastname,
                     'phone' => $request->phone,
                     'house' => $request->house,
+                    'gender' => $request->gender,
                     'yeargroup' => $request->yeargroup,
                     'whatsapp' => $request->whatsapp,
                     'password' => Hash::make("Omsu@".$request->yeargroup)
@@ -482,8 +491,9 @@ class MainController extends Controller
                 'token' => $conference->token,
                 'email' => $request->email,
                 'regno' => $regno,
+                'amount'=>$amount,
                 'url' => url('/reg-success?regno='.$regno.'&conference='.$conference->id.'&email='.$request->email),
-                'message' => 'Make the payment of GHC 150 to complete you registration '
+                'message' => 'Make the payment of GHC '.$amount.' to complete you registration '
             ]);
         }catch(Exception $e){
             if($application != null){

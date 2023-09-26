@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>OMSU GLOBAL REGISTRATION</title>
+  <title>UGBS Accreditations | Log in</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -19,7 +19,7 @@
 
   <style>
     #bgleft {
-       background-image: url("{{asset('adminassets/images/bgwhite1100.jpeg')}}");
+        background-image: url("{{asset('adminassets/images/bgwhite1100.jpg')}}");
         height: 100vh;
         min-height: 100vh;
         background-position: bottom;
@@ -68,6 +68,7 @@
 <body class="hold-transition login-page" style="min-height: 100vh;">
     <div id="bgleft" class="col-md-7">
         <div class="" style="background-color: rgba(0, 0, 0, 0.707); padding: 50px;">
+            <h1>UG CONFERENCES </h1>
             <h3>ADMIN PORTAL</h3>
         </div>
     </div>
@@ -75,7 +76,7 @@
     <div class="col-md-5" id="loginsection">
         <div class="login-box" >
             <div class="login-logo">
-              <a href="#"><b>ADMIN </b>LOGIN</a>
+              <a href="#"><b>STAFF </b>LOGIN</a>
             </div>
             <div class="login-box-body" style="padding-top: 50px; padding-bottom: 50px;">
               <p class="login-box-msg">Sign in to continue</p>
@@ -88,11 +89,11 @@
               <form id="userLogin" action="#" method="post">
                 {{csrf_field()}}
                 <div class="form-group has-feedback">
-                  <input type="text" name="username" class="form-control" placeholder="Username">
+                  <input type="text" name="username" class="form-control" placeholder="Staff ID / Username">
                   <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                  <input type="password" name="password" class="form-control" placeholder="Password">
+                  <input type="password" name="password" class="form-control" placeholder="Staff PIN / Password">
                   <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">

@@ -150,7 +150,16 @@
     <!-- End container -->
 </main>
 
-@include('app.includes.copyright')
+<footer class="clearfix">
+    <div class="container">
+        <p>© {{date('Y')}} UGCS</p>
+        <ul>
+            <li><a href="#" class="animated_link">Developed By UGCS</a></li>
+            <li><a href="#" class="animated_link">Terms and conditions</a></li>
+            <li><a href="#" class="animated_link">UGCS</a></li>
+        </ul>
+    </div>
+</footer>
 
 <!-- end footer-->
 

@@ -20,7 +20,7 @@
                     <div style=" padding: 20px; background-color:white; width: 10rem; border-radius: 10px;">
                         <img src="{{asset('assets/img/logo.png')}}" style="height: 6rem; width: 5rem; align-self:center;" alt="" class="img-fluid">
                     </div>
-                    <h2>Download <br/> Congress Documents</h2>
+                    <h2>Download <br/> Conference Documents</h2>
                     
                     <p>{{$conference->title}}</p>
 

@@ -17,16 +17,12 @@ return new class extends Migration
             $table->string('lastname')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('whatsapp')->nullable();
-            $table->string('house')->nullable();
-            $table->string('yeargroup')->nullable();
+            $table->string('institution')->nullable();
             $table->string('occupation')->nullable();
             $table->longText('extras')->nullable();
             $table->longText('otherdata')->nullable();
-            $table->bigInteger('user_id')->nullable();
-            $table->string('amount')->nullable();
-            $table->string('paid')->nullable();
             $table->bigInteger('conference_id')->nullable();
+            $table->string('conference_token')->nullable();
             $table->timestamps();
         });
     }

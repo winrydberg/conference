@@ -1,5 +1,5 @@
   <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar" style="background-color: #008f00;">
+  <aside class="main-sidebar" style="background-color: #000073;">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->

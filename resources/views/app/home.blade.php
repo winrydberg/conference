@@ -47,7 +47,7 @@
     </div>
     <div class="container margin_60">
         {{-- <div class="main_title">
-            <h3><em></em>UPCOMING CONGRESS</h3>
+            <h3><em></em>UPCOMING CONFERENCES</h3>
             <p>
                 Find below our list of our upcoming conferences
             </p>
@@ -103,7 +103,7 @@
                                     <br />
                                     <a href="{{url('/apply-now?cid='.$item->token)}}" class="btn_1 small">Register Now</a>
 
-                                    <a href="{{url('/about?cid='.$item->token)}}" class="btn_1 small " style="background-color: #6c757d">About Congress</a>
+                                    <a href="{{url('/about?cid='.$item->token)}}" class="btn_1 small " style="background-color: #6c757d">About Conference</a>
         
                                     @if($item->receive_abstract =='1' || $item->receive_abstract==true)
                                     <a href="{{url('/submit-abstract?cid='.$item->token)}}" class="btn_1 small" style="background-color: #28a745" >Submit Abstract</a>
@@ -114,7 +114,7 @@
                     </div>
                     @endforeach
               @else
-                    <p class="alert alert-info">No Upcoming Congress. Check again later.</p>
+                    <p class="alert alert-info">No Upcoming Conferences. Check again later.</p>
               @endif
         </div>
         <!--End Team Carousel-->
@@ -122,7 +122,16 @@
     <!-- End container -->
 </main>
 
-@include('app.includes.copyright')
+<footer class="clearfix">
+    <div class="container">
+        <p>© {{date('Y')}} </p>
+        <ul>
+            <li><a href="#" class="animated_link">Developed By ....</a></li>
+            <li><a href="#" class="animated_link">Terms and conditions</a></li>
+            <li><a href="#" class="animated_link"></a></li>
+        </ul>
+    </div>
+</footer>
 
 <!-- end footer-->
 

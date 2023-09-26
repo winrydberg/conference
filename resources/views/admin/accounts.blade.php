@@ -31,6 +31,7 @@
                     <label for="name">Auth Type</label>
                     <select class="form-control" name="authtype" id="authtype" >
                         <option value="username">Username</option>
+                        <option value="staffid">Staff ID</option>
                     </select>
                   </div>
                   <div class="form-group" id="usernamecont">

@@ -30,7 +30,7 @@
                     {{-- </div> --}}
                 </div>
             
-                <div class="copy">© {{date('Y')}}</div>
+                <div class="copy">© {{date('Y')}} UGCS</div>
             </div>
             <!-- /content-left-wrapper -->
         </div>
