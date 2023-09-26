@@ -1,10 +1,10 @@
 
-function payWithPaystack(regno, email, csrf_token) {
+function payWithPaystack(regno, email, csrf_token,amount) {
 
     var handler = PaystackPop.setup({ 
-        key: 'pk_test_f02ee58fdf8d7cf81bcce6ac5f5c46bdb5a39f93', //put your public key here
+        key: 'pk_test_3ce2d98aa1858b9aea0ec527a239b8ad602b0908', //put your public key here
         email: email, //put your customer's email here
-        amount: 15000, //amount the customer is supposed to pay
+        amount: amount * 100, //amount the customer is supposed to pay
         currency: "GHS",
         // metadata: {
         //     custom_fields: [
